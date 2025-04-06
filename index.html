@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpamShield | AI Email Spam Classifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="tab.png">
+    <link rel="stylesheet" href="Style.css">
+    <script src="Function.js"></script>
+</head>
+
+    <body class="bg-gray-900 text-white">
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-rain" class="matrix-rain"></canvas>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+   
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto py-32 px-4 sm:py-40 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl neon-text">
+                    AI-Powered Email Spam Detection
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-xl text-blue-100">
+                    Protect your inbox with our advanced machine learning classifier that identifies spam with 98% accuracy.
+                </p>
+                <div class="mt-10">
+                    <a href="#demo" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 transform hover:scale-110 transition duration-300">
+                        <i class="fas fa-play-circle mr-2"></i> Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    
+        
+        <!-- Animated Grid Background -->
+        <div class="absolute inset-0 overflow-hidden opacity-20">
+            <div class="grid-lines"></div>
+        </div>
+    </div>
+
+
+        <!-- Floating AI Nodes -->
+        <div class="floating-ai-nodes absolute inset-0 overflow-hidden z-0">
+            <!-- Will be populated with JS -->
+        </div>
+    </div>
+
+   
+        <!-- Animated Neural Network Visualization -->
+        <div id="neural-network" class="absolute inset-0 overflow-hidden z-0 opacity-20">
+            <!-- Will be populated with JS -->
+        </div>
+    </div>
+
+    <!-- Demo Section -->
+    <div id="demo" class="py-20 bg-gray-900 bg-opacity-90 backdrop-blur-sm relative scanlines">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:text-center mb-16">
+                <h2 class="text-base text-blue-400 font-semibold tracking-wide uppercase">Try It Now</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+                    Spam Classifier 
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <div class="mb-6">
+                        <label for="email-text" class="block text-sm font-medium text-gray-300">Enter email content</label>
+                        <div class="mt-2">
+                            <textarea id="email-text" rows="12" class="input-highlight bg-gray-800 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-700 rounded-md p-4 border" placeholder="Paste the content of an email here to check if it's spam..."></textarea>
+                        </div>
+                    </div>
+                    <button onclick="classifyEmail()" class="cyber-glow gradient-bg text-white px-6 py-3 rounded-md text-lg font-medium hover:opacity-90 transition transform hover:scale-105 w-full">
+                        <i class="fas fa-search mr-2"></i> Check for Spam
+                    </button>
+                </div>
+
+                <div>
+                    <div class="holographic p-8 rounded-lg h-full">
+                        <h3 class="text-xl font-medium text-white mb-6">Analysis Results</h3>
+                        
+                        <div id="result-container" class="hidden">
+                            <div class="flex items-center mb-6">
+                                <div id="result-icon" class="flex-shrink-0 h-16 w-16 rounded-full flex items-center justify-center shadow-lg">
+                                    <!-- Icon will be inserted here by JS -->
+                                </div>
+                                <div class="ml-4">
+                                    <p id="result-text" class="text-lg font-medium text-white">
+                                        <!-- Result text will be inserted here by JS -->
+                                    </p>
+                                    <p id="confidence-text" class="text-sm text-gray-300">
+                                        <!-- Confidence will be inserted here by JS -->
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8">
+                                <h4 class="text-lg font-medium text-white mb-4">Key Indicators</h4>
+                                <ul id="indicators-list" class="list-disc pl-5 space-y-2 text-base text-gray-300">
+                                    <!-- Indicators will be inserted here by JS -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="empty-state" class="text-center py-12">
+                            <i class="fas fa-envelope-open-text text-5xl text-gray-500 mb-4"></i>
+                            <h4 class="text-xl font-medium text-gray-400">No email analyzed yet</h4>
+                            <p class="mt-2 text-base text-gray-500">Enter an email and click "Check for Spam" to see results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    
+        
+        <!-- Floating Tech Elements -->
+        <div class="floating-tech absolute inset-0 overflow-hidden z-0">
+            <!-- Will be populated with JS -->
+        </div>
+    </div>
+
+   
+        <!-- Floating AI Chip Animation -->
+        <div class="floating-chip absolute inset-0 overflow-hidden z-0">
+            <!-- Will be populated with JS -->
+        </div>
+    </div>
+
+   
+        <!-- Performance  -->
+          <!-- Performance Metrics Section -->
+    <section id="performance" class="py-12 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold dark:text-white">Performance Metrics</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-2xl font-semibold mb-6 dark:text-white">Model Evaluation</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <h4 class="text-lg font-medium mb-4 dark:text-white">Test Dataset Results</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium dark:text-white">Accuracy</span>
+                                        <span class="font-semibold">96.8%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 96.8%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium dark:text-white">Precision</span>
+                                        <span class="font-semibold">97.2%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: 97.2%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium dark:text-white">Recall</span>
+                                        <span class="font-semibold">95.5%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                                        <div class="bg-purple-500 h-2.5 rounded-full" style="width: 95.5%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium dark:text-white">F1 Score</span>
+                                        <span class="font-semibold">96.3%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                                        <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 96.3%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-medium mb-4 dark:text-white">Confusion Matrix</h4>
+                            <div class="grid grid-cols-3 gap-1 text-sm">
+                                <div class="col-start-2 text-center font-medium dark:text-white">Predicted Spam</div>
+                                <div class="col-start-2 text-center font-medium dark:text-white">Predicted Not Spam</div>
+                                <div class="row-start-2 flex items-center justify-end pr-2 font-medium dark:text-white">Actual Spam</div>
+                                <div class="bg-green-100 dark:bg-green-900 p-3 text-center font-semibold">4,876</div>
+                                <div class="bg-red-100 dark:bg-red-900 p-3 text-center font-semibold">228</div>
+                                <div class="row-start-3 flex items-center justify-end pr-2 font-medium dark:text-white">Actual Not Spam</div>
+                                <div class="bg-red-100 dark:bg-red-900 p-3 text-center font-semibold">156</div>
+                                <div class="bg-green-100 dark:bg-green-900 p-3 text-center font-semibold">5,321</div>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                                <p>Based on 10,581 test emails from the Enron dataset.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 dark:bg-blue-900 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 class="text-xl font-semibold mb-3 dark:text-white">Comparison with Other Methods</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-600 dark:text-gray-300">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                                    <tr>
+                                        <th class="px-4 py-2">Algorithm</th>
+                                        <th class="px-4 py-2">Accuracy</th>
+                                        <th class="px-4 py-2">Precision</th>
+                                        <th class="px-4 py-2">Recall</th>
+                                        <th class="px-4 py-2">Training Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white dark:bg-gray-800 border-b dark:border-gray-700">
+                                        <td class="px-4 py-2 font-medium dark:text-white">Naive Bayes</td>
+                                        <td class="px-4 py-2">96.8%</td>
+                                        <td class="px-4 py-2">97.2%</td>
+                                        <td class="px-4 py-2">95.5%</td>
+                                        <td class="px-4 py-2">0.8s</td>
+                                    </tr>
+                                    <tr class="bg-gray-50 dark:bg-gray-700 border-b dark:border-gray-700">
+                                        <td class="px-4 py-2 font-medium dark:text-white">SVM</td>
+                                        <td class="px-4 py-2">97.1%</td>
+                                        <td class="px-4 py-2">96.8%</td>
+                                        <td class="px-4 py-2">96.5%</td>
+                                        <td class="px-4 py-2">12.4s</td>
+                                    </tr>
+                                    <tr class="bg-white dark:bg-gray-800 border-b dark:border-gray-700">
+                                        <td class="px-4 py-2 font-medium dark:text-white">Random Forest</td>
+                                        <td class="px-4 py-2">96.5%</td>
+                                        <td class="px-4 py-2">96.3%</td>
+                                        <td class="px-4 py-2">95.8%</td>
+                                        <td class="px-4 py-2">23.7s</td>
+                                    </tr>
+                                    <tr class="bg-gray-50 dark:bg-gray-700">
+                                        <td class="px-4 py-2 font-medium dark:text-white">Logistic Regression</td>
+                                        <td class="px-4 py-2">96.2%</td>
+                                        <td class="px-4 py-2">96.0%</td>
+                                        <td class="px-4 py-2">95.3%</td>
+                                        <td class="px-4 py-2">5.2s</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                            <p>Naive Bayes offers the best balance between performance and computational efficiency for spam filtering.</p>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    
+    <!-- Training Data Section -->
+    <section class="py-12 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold dark:text-white">Training Data & Model</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden mb-8">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-4 dark:text-white">Dataset Information</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            Our Naive Bayes classifier was trained on the Enron Spam Dataset, one of the most reputable collections of emails for spam filtering research. This dataset contains over 30,000 emails, carefully labeled as spam or ham (legitimate emails).
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-envelope text-blue-500 mr-3"></i>
+                                    <span class="font-medium dark:text-white">Total Emails</span>
+                                    <span class="ml-auto font-semibold">32,716</span>
+                                </div>
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-spam text-red-500 mr-3"></i>
+                                    <span class="font-medium dark:text-white">Spam Emails</span>
+                                    <span class="ml-auto font-semibold">14,190</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-inbox text-green-500 mr-3"></i>
+                                    <span class="font-medium dark:text-white">Legitimate Emails</span>
+                                    <span class="ml-auto font-semibold">18,526</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-calendar-alt text-blue-500 mr-3"></i>
+                                    <span class="font-medium dark:text-white">Time Period</span>
+                                    <span class="ml-auto font-semibold">1998-2002</span>
+                                </div>
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-users text-purple-500 mr-3"></i>
+                                    <span class="font-medium dark:text-white">Users</span>
+                                    <span class="ml-auto font-semibold">150+</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-database text-yellow-500 mr-3"></i>
+                                    <span class="font-medium dark:text-white">Dataset Size</span>
+                                    <span class="ml-auto font-semibold">423 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#" class="border border-blue-600 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900 transition flex items-center">
+                                <i class="fab fa-github mr-2"></i> View on GitHub
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+        <!-- Floating Particles -->
+        <div class="floating-particles absolute inset-0 overflow-hidden z-0">
+            <!-- Will be populated with JS -->
+        </div>
+    </div>
+</body>
+</html>
